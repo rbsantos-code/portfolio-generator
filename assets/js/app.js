@@ -64,18 +64,41 @@
 // }) 
 
 // 9.2.6 Refactor Code --------
+const inquirer = require('inquirer');
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const generatePage = require('./src/page-template.js');
+// const generatePage = require('./src/page-template.js');
 
-const profileDataArgs = process.argv.slice(2);
+// const profileDataArgs = process.argv.slice(2); // -- remove using inquirer instead - 9.3.5
 
-const [name, github] = profileDataArgs;
+// const [name, github] = profileDataArgs;
+
+// const pageHTML = generatePage(name, github);
 
 
-fs.writeFile('./index.html', generatePage(name, github), err => {
-    if(err) throw new Error(err);
+// fs.writeFile('./index.html', generatePage(name, github), err => {
+//     if(err) throw new Error(err);
 
-    console.log('Portfolio complete! Check out index.html to see the output!');
-});
+//     console.log('Portfolio complete! Check out index.html to see the output!');
+// });
+
+// 9.3.5 ----------------------------------
+
+// refactor fs.writeFile
+
+// fs.write('./js/index.html'), pageHTML, err => {
+//     if (err) throw err;
+
+//     console.log('Portfolio complete! Check out index.html to see output!');
+// };
+
+inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is your name?'
+        }
+    ])
+    .then(answers => console.log(answers));
