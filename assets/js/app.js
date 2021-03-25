@@ -66,9 +66,9 @@
 // 9.2.6 Refactor Code --------
 const inquirer = require('inquirer');
 
-// const fs = require('fs');
+const fs = require('fs');
 
-// const generatePage = require('./src/page-template.js');
+const generatePage = require('./src/page-template.js');
 
 // const profileDataArgs = process.argv.slice(2); // -- remove using inquirer instead - 9.3.5
 
@@ -230,6 +230,16 @@ const promptProject = portfolioData => {
     });
 };
 
+// USING MOCK Data as input for testing 9.4.3-------- DONT FORGET TO REVERT BACK!
+// const mockData = {
+//     name: 'lernantino',
+//     github: 'lernantino',
+//     projects:[]
+// }
+
+// const pageHTML = generatePage(mockData);
+// --------------------------------------------------
+
 // promptUser()
 //     .then(answers => console.log(answers))
 //     .then(promptProject)
@@ -239,5 +249,12 @@ const promptProject = portfolioData => {
 promptUser()
     .then(promptProject)
     .then(portfolioData => {
-        console.log(portfolioData);
+        // add this code from Lesson 9.4.3
+        const pageHTML = generatePage(portfolioData);
+
+        fs.writeFile('./index.html', pageHTML, err => {
+            if (err) throw new Error(err);
+
+            console.log("Page Created! Check out index.html in this directory to see it!");
+        });
     });
